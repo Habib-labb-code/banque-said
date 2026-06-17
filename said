@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Banque Saïd</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+:root{
+    --bleu:#0057b8;
+    --bleu-fonce:#002b5c;
+    --fond:#eef3f8;
+    --texte:#102033;
+    --blanc:#ffffff;
+    --vert:#16a34a;
+    --rouge:#dc2626;
+    --ombre:0 10px 30px rgba(0,0,0,0.12);
+}
+
+body{
+    background:var(--fond);
+    color:var(--texte);
+    transition:0.3s;
+}
+
+body.dark{
+    --fond:#0f172a;
+    --texte:#e5e7eb;
+    --blanc:#1e293b;
+    --ombre:0 10px 30px rgba(0,0,0,0.4);
+}
+
+header{
+    background:linear-gradient(135deg,#002b5c,#0077cc);
+    color:white;
+    padding:25px;
+    text-align:center;
+}
+
+.logo{
+    font-size:42px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#ffd700;
+}
+
+header p{
+    margin-top:8px;
+}
+
+nav{
+    background:var(--blanc);
+    padding:15px;
+    text-align:center;
+    box-shadow:var(--ombre);
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+nav a, nav button{
+    margin:8px;
+    border:none;
+    background:none;
+    color:var(--bleu-fonce);
+    font-weight:bold;
+    cursor:pointer;
+    font-size:15px;
+    text-decoration:none;
+    width:auto;
+}
+
+body.dark nav a,
+body.dark nav button{
+    color:white;
+}
+
+.hero{
+    text-align:center;
+    padding:80px 20px;
+    animation:apparition 1s ease;
+}
+
+.hero h1{
+    font-size:44px;
+    color:var(--bleu-fonce);
+}
+
+body.dark .hero h1{
+    color:white;
+}
+
+.hero p{
+    margin:20px;
+    font-size:20px;
+}
+
+.btn{
+    background:var(--bleu);
+    color:white;
+    padding:14px 32px;
+    border-radius:30px;
+    text-decoration:none;
+    display:inline-block;
+    transition:.3s;
+    cursor:pointer;
+    border:none;
+}
+
+.btn:hover{
+    background:var(--bleu-fonce);
+    transform:scale(1.05);
+}
+
+.box{
+    display:none;
+    width:360px;
+    max-width:90%;
+    margin:40px auto;
+    background:var(--blanc);
+    padding:30px;
+    border-radius:16px;
+    box-shadow:var(--ombre);
+    animation:apparition .6s ease;
+}
+
+.box h2{
+    margin-bottom:15px;
+    color:var(--bleu-fonce);
+}
+
+body.dark .box h2{
+    color:white;
+}
+
+input, select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:10px;
+    border:1px solid #cbd5e1;
+    outline:none;
+}
+
+input:focus, select:focus{
+    border-color:var(--bleu);
+}
+
+button{
+    padding:12px;
+    background:var(--bleu);
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:var(--bleu-fonce);
+}
+
+.dashboard{
+    display:none;
+    padding:30px;
+    animation:apparition .8s ease;
+}
+
+.dashboard-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+
+.tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.tabs button{
+    width:auto;
+    padding:12px 20px;
+    background:var(--blanc);
+    color:var(--bleu-fonce);
+    box-shadow:var(--ombre);
+}
+
+body.dark .tabs button{
+    color:white;
+}
+
+.tabs button.active{
+    background:var(--bleu);
+    color:white;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+    animation:apparition .5s ease;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:var(--blanc);
+    padding:25px;
+    border-radius:16px;
+    box-shadow:var(--ombre);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.solde{
+    font-size:36px;
+    color:var(--vert);
+    font-weight:bold;
+    margin:12px 0;
+}
+
+.salaire{
+    color:var(--bleu);
+    font-size:26px;
+    font-weight:bold;
+}
+
+.operation{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.plus{
+    color:var(--vert);
+    font-weight:bold;
+}
+
+.moins{
+    color:var(--rouge);
+    font-weight:bold;
+}
+
+.carte{
+    background:linear-gradient(135deg,#111827,#2563eb);
+    color:white;
+    border-radius:20px;
+    padding:25px;
+    min-height:180px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.carte-numero{
+    font-size:22px;
+    letter-spacing:3px;
+}
+
+.carte-bas{
+    display:flex;
+    justify-content:space-between;
+}
+
+.security-ok{
+    background:#dcfce7;
+    color:#166534;
+    padding:12px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.security-warning{
+    background:#fef3c7;
+    color:#92400e;
+    padding:12px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.don-message{
+    line-height:1.7;
+    margin:12px 0;
+}
+
+footer{
+    background:#002b5c;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
+
+@keyframes apparition{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:600px){
+    .hero h1{
+        font-size:32px;
+    }
+
+    .logo{
+        font-size:32px;
+    }
+
+    .dashboard{
+        padding:18px;
+    }
+
+    .operation{
+        flex-direction:column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🏦 Banque <span>Saïd</span></div>
+    <p>Votre banque digitale sécurisée</p>
+</header>
+
+<nav>
+    <a href="#" onclick="retourAccueil()">Accueil</a>
+    <a href="#" onclick="ouvrirConnexion()">Mon espace</a>
+    <button onclick="changerTheme()">🌙 Mode sombre</button>
+</nav>
+
+<section class="hero" id="accueil">
+    <h1>Bienvenue à Banque Saïd</h1>
+    <p>Gérez votre argent simplement, rapidement et en toute sécurité.</p>
+    <a class="btn" onclick="ouvrirConnexion()">Accéder à mon compte</a>
+</section>
+
+<div class="box" id="login">
+    <h2>Connexion Client</h2>
+    <input id="user" placeholder="Identifiant">
+    <input id="pass" type="password" placeholder="Mot de passe">
+    <button onclick="connexion()">Se connecter</button>
+</div>
+
+<div class="box" id="doubleSecurity">
+    <h2>Vérification sécurité</h2>
+    <p>Entrez le code reçu par SMS.</p>
+    <input id="codeSecurity" placeholder="Code de sécurité">
+    <button onclick="verifierCode()">Valider</button>
+</div>
+
+<section class="dashboard" id="dashboard">
+
+    <div class="dashboard-header">
+        <div>
+            <h1>Espace Client</h1>
+            <p>Bonjour Saïd, content de vous revoir.</p>
+        </div>
+        <button onclick="deconnexion()">Déconnexion</button>
+    </div>
+
+    <div class="tabs">
+        <button class="active" onclick="ouvrirPage('compte', this)">Mon compte</button>
+        <button onclick="ouvrirPage('virements', this)">Virements</button>
+        <button onclick="ouvrirPage('profil', this)">Profil</button>
+        <button onclick="ouvrirPage('securite', this)">Sécurité</button>
+        <button onclick="ouvrirPage('dons', this)">Dons solidaires</button>
+    </div>
+
+    <div class="page active" id="compte">
+        <div class="grid">
+            <div class="card">
+                <h2>Compte courant</h2>
+                <p class="solde">2 450,80 €</p>
+                <p>Solde disponible</p>
+            </div>
+
+            <div class="card">
+                <h2>Salaire</h2>
+                <p class="salaire">+ 1 850,00 €</p>
+                <p>Versé le 28 mai 2026</p>
+            </div>
+
+            <div class="card">
+                <h2>Carte virtuelle</h2>
+                <div class="carte">
+                    <div>Banque Saïd</div>
+                    <div class="carte-numero">**** **** **** 4589</div>
+                    <div class="carte-bas">
+                        <span>Saïd Client</span>
+                        <span>09/29</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Historique complet</h2>
+                <div class="operation"><span>Salaire</span><span class="plus">+ 1 850,00 €</span></div>
+                <div class="operation"><span>Loyer</span><span class="moins">- 650,00 €</span></div>
+                <div class="operation"><span>Restaurant</span><span class="moins">- 45,00 €</span></div>
+                <div class="operation"><span>Transport</span><span class="moins">- 30,00 €</span></div>
+                <div class="operation"><span>Remboursement ami</span><span class="plus">+ 120,00 €</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="virements">
+        <div class="grid">
+            <div class="card">
+                <h2>Nouveau virement</h2>
+                <input id="beneficiaire" placeholder="Nom du bénéficiaire">
+                <input id="iban" placeholder="IBAN du bénéficiaire">
+                <input id="montant" type="number" placeholder="Montant en €">
+                <input id="motif" placeholder="Motif du virement">
+                <button onclick="faireVirement()">Envoyer le virement</button>
+            </div>
+
+            <div class="card">
+                <h2>Mes virements</h2>
+                <div id="listeVirements">
+                    <div class="operation"><span>Virement à Amine</span><span class="moins">- 80,00 €</span></div>
+                    <div class="operation"><span>Virement reçu de Lina</span><span class="plus">+ 150,00 €</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="profil">
+        <div class="grid">
+            <div class="card">
+                <h2>Mes coordonnées</h2>
+                <p><strong>Nom :</strong> Saïd Client</p>
+                <p><strong>Email :</strong> said.client@email.com</p>
+                <p><strong>Téléphone :</strong> 06 12 34 56 78</p>
+                <p><strong>Adresse :</strong> 24 rue de Paris, 75000 Paris</p>
+                <p><strong>Compte :</strong> FR76 XXXX XXXX XXXX 4589</p>
+                <p><strong>Statut :</strong> Client Premium</p>
+            </div>
+
+            <div class="card">
+                <h2>Votre conseillère</h2>
+                <p><strong>Nom :</strong> Saïd Habib</p>
+                <p><strong>Téléphone :</strong> 01 45 78 96 32</p>
+                <p><strong>Email :</strong> said.habib@banquesaid.fr</p>
+                <p><strong>Agence :</strong> Banque Saïd Paris Centre</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="securite">
+        <div class="grid">
+            <div class="card">
+                <h2>Sécurité du compte</h2>
+                <p class="security-ok">Double vérification activée</p>
+                <p class="security-ok">Carte virtuelle protégée</p>
+                <p class="security-warning">Dernière connexion : aujourd’hui à 14:32</p>
+            </div>
+
+            <div class="card">
+                <h2>Changer le mot de passe</h2>
+                <input type="password" placeholder="Ancien mot de passe">
+                <input type="password" placeholder="Nouveau mot de passe">
+                <input type="password" placeholder="Confirmer le mot de passe">
+                <button onclick="alert('Mot de passe modifié avec succès.')">Modifier</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="dons">
+        <div class="grid">
+            <div class="card">
+                <h2>Dons solidaires</h2>
+
+                <p class="don-message">
+                    En mémoire de ma mère, que Dieu lui fasse miséricorde,
+                    cette cagnotte est dédiée aux enfants et aux familles dans le besoin.
+                </p>
+
+                <p class="don-message">
+                    Chaque don, même petit, peut aider une personne à manger,
+                    se soigner, étudier ou vivre avec plus de dignité.
+                </p>
+
+                <input id="nomDonateur" placeholder="Votre nom">
+                <input id="montantDon" type="number" placeholder="Montant du don en €">
+
+                <select id="associationDon">
+                    <option value="">Choisir une cause</option>
+                    <option>Enfants dans le besoin</option>
+                    <option>Familles en difficulté</option>
+                    <option>Repas solidaires</option>
+                    <option>Aide scolaire</option>
+                </select>
+
+                <button onclick="faireDon()">Faire un don</button>
+            </div>
+
+            <div class="card">
+                <h2>Derniers dons</h2>
+                <div id="listeDons">
+                    <div class="operation">
+                        <span>Don anonyme - Enfants dans le besoin</span>
+                        <span class="plus">+ 20,00 €</span>
+                    </div>
+
+                    <div class="operation">
+                        <span>Don de Saïd - Repas solidaires</span>
+                        <span class="plus">+ 50,00 €</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Total collecté</h2>
+                <p class="solde" id="totalDons">70,00 €</p>
+                <p class="don-message">
+                    Merci à toutes les personnes qui participent à cette sadaqa
+                    pour aider ceux qui en ont besoin.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<footer>
+    © 2026 Banque Saïd - Tous droits réservés
+</footer>
+
+<script>
+let totalDons = 70;
+
+function ouvrirConnexion(){
+    document.getElementById("login").style.display = "block";
+    document.getElementById("accueil").style.display = "block";
+    window.scrollTo({
+        top: 250,
+        behavior: "smooth"
+    });
+}
+
+function connexion(){
+    let user = document.getElementById("user").value;
+    let pass = document.getElementById("pass").value;
+
+    if(user === "client" && pass === "1234"){
+        document.getElementById("login").style.display = "none";
+        document.getElementById("doubleSecurity").style.display = "block";
+        window.scrollTo({
+            top: 250,
+            behavior: "smooth"
+        });
+    } else {
+        alert("Identifiant ou mot de passe incorrect");
+    }
+}
+
+function verifierCode(){
+    let code = document.getElementById("codeSecurity").value;
+
+    if(code === "2468"){
+        document.getElementById("doubleSecurity").style.display = "none";
+        document.getElementById("accueil").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    } else {
+        alert("Code de sécurité incorrect");
+    }
+}
+
+function ouvrirPage(pageId, bouton){
+    let pages = document.querySelectorAll(".page");
+    let boutons = document.querySelectorAll(".tabs button");
+
+    pages.forEach(page => page.classList.remove("active"));
+    boutons.forEach(btn => btn.classList.remove("active"));
+
+    document.getElementById(pageId).classList.add("active");
+    bouton.classList.add("active");
+}
+
+function faireVirement(){
+    let beneficiaire = document.getElementById("beneficiaire").value;
+    let iban = document.getElementById("iban").value;
+    let montant = document.getElementById("montant").value;
+    let motif = document.getElementById("motif").value;
+
+    if(beneficiaire === "" || iban === "" || montant === ""){
+        alert("Veuillez remplir le bénéficiaire, l’IBAN et le montant.");
+        return;
+    }
+
+    let liste = document.getElementById("listeVirements");
+
+    let nouveauVirement = document.createElement("div");
+    nouveauVirement.className = "operation";
+    nouveauVirement.innerHTML = `
+        <span>${motif || "Virement à " + beneficiaire}</span>
+        <span class="moins">- ${Number(montant).toFixed(2)} €</span>
+    `;
+
+    liste.prepend(nouveauVirement);
+
+    alert("Virement envoyé avec succès.");
+
+    document.getElementById("beneficiaire").value = "";
+    document.getElementById("iban").value = "";
+    document.getElementById("montant").value = "";
+    document.getElementById("motif").value = "";
+}
+
+function faireDon(){
+    let nom = document.getElementById("nomDonateur").value;
+    let montant = document.getElementById("montantDon").value;
+    let association = document.getElementById("associationDon").value;
+
+    if(montant === "" || association === ""){
+        alert("Veuillez indiquer un montant et choisir une cause.");
+        return;
+    }
+
+    if(Number(montant) <= 0){
+        alert("Le montant du don doit être supérieur à 0.");
+        return;
+    }
+
+    let nomAffiche = nom === "" ? "anonyme" : nom;
+    let liste = document.getElementById("listeDons");
+
+    let nouveauDon = document.createElement("div");
+    nouveauDon.className = "operation";
+    nouveauDon.innerHTML = `
+        <span>Don de ${nomAffiche} - ${association}</span>
+        <span class="plus">+ ${Number(montant).toFixed(2)} €</span>
+    `;
+
+    liste.prepend(nouveauDon);
+
+    totalDons += Number(montant);
+    document.getElementById("totalDons").textContent = totalDons.toFixed(2) + " €";
+
+    alert("Merci pour votre don. Qu’il soit une cause de bien et de miséricorde.");
+
+    document.getElementById("nomDonateur").value = "";
+    document.getElementById("montantDon").value = "";
+    document.getElementById("associationDon").value = "";
+}
+
+function changerTheme(){
+    document.body.classList.toggle("dark");
+}
+
+function deconnexion(){
+    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("accueil").style.display = "block";
+    document.getElementById("login").style.display = "none";
+    document.getElementById("doubleSecurity").style.display = "none";
+
+    document.getElementById("user").value = "";
+    document.getElementById("pass").value = "";
+    document.getElementById("codeSecurity").value = "";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+function retourAccueil(){
+    document.getElementById("accueil").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+</script>
+
+</body>
+</html>
