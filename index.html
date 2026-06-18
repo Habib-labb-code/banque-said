@@ -304,6 +304,19 @@ body.dark .tabs button{
     margin-top:10px;
 }
 
+.info-blue{
+    background:#dbeafe;
+    color:#1e40af;
+    padding:12px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+body.dark .info-blue{
+    background:#1e3a8a;
+    color:#dbeafe;
+}
+
 .don-message{
     line-height:1.7;
     margin:12px 0;
@@ -363,7 +376,7 @@ footer{
 
 <section class="hero" id="accueil">
     <h1>Bienvenue à Banque Saïd</h1>
-    <p>Gérez votre argent simplement, rapidement et en toute sécurité.</p>
+    <p>Une banque digitale simple, moderne et pensée pour protéger vos données.</p>
     <a class="btn" onclick="ouvrirConnexion()">Accéder à mon compte</a>
 </section>
 
@@ -397,6 +410,7 @@ footer{
         <button onclick="ouvrirPage('profil', this)">Profil</button>
         <button onclick="ouvrirPage('securite', this)">Sécurité</button>
         <button onclick="ouvrirPage('dons', this)">Dons solidaires</button>
+        <button onclick="ouvrirPage('fiabilite', this)">Sécurité & fiabilité</button>
     </div>
 
     <div class="page active" id="compte">
@@ -485,6 +499,7 @@ footer{
                 <h2>Sécurité du compte</h2>
                 <p class="security-ok">Double vérification activée</p>
                 <p class="security-ok">Carte virtuelle protégée</p>
+                <p class="security-ok">Contrôle des opérations sensibles</p>
                 <p class="security-warning">Dernière connexion : aujourd’hui à 14:32</p>
             </div>
 
@@ -502,7 +517,6 @@ footer{
         <div class="grid">
             <div class="card">
                 <h2>Dons solidaires</h2>
-
                 <p class="don-message">
                     En mémoire de ma mère, que Dieu lui fasse miséricorde,
                     cette cagnotte est dédiée aux enfants et aux familles dans le besoin.
@@ -530,15 +544,8 @@ footer{
             <div class="card">
                 <h2>Derniers dons</h2>
                 <div id="listeDons">
-                    <div class="operation">
-                        <span>Don anonyme - Enfants dans le besoin</span>
-                        <span class="plus">+ 20,00 €</span>
-                    </div>
-
-                    <div class="operation">
-                        <span>Don de Saïd - Repas solidaires</span>
-                        <span class="plus">+ 50,00 €</span>
-                    </div>
+                    <div class="operation"><span>Don anonyme - Enfants dans le besoin</span><span class="plus">+ 20,00 €</span></div>
+                    <div class="operation"><span>Don de Saïd - Repas solidaires</span><span class="plus">+ 50,00 €</span></div>
                 </div>
             </div>
 
@@ -553,10 +560,79 @@ footer{
         </div>
     </div>
 
+    <div class="page" id="fiabilite">
+        <div class="grid">
+            <div class="card">
+                <h2>Protection des données</h2>
+                <p class="info-blue">
+                    Les informations du client sont pensées pour être protégées et accessibles uniquement après connexion.
+                </p>
+                <p class="security-ok">Connexion avec identifiant et mot de passe</p>
+                <p class="security-ok">Code de vérification supplémentaire</p>
+                <p class="security-ok">Données personnelles séparées de l’espace public</p>
+                <p class="security-warning">Projet de démonstration, sans vraies données bancaires</p>
+            </div>
+
+            <div class="card">
+                <h2>Sauvegarde des informations</h2>
+                <p class="don-message">
+                    Dans une vraie application, les transactions, les virements et les dons seraient sauvegardés
+                    automatiquement pour éviter toute perte d’information.
+                </p>
+                <div class="operation"><span>Transactions</span><span class="plus">Sauvegardées</span></div>
+                <div class="operation"><span>Virements</span><span class="plus">Historique conservé</span></div>
+                <div class="operation"><span>Dons solidaires</span><span class="plus">Suivi disponible</span></div>
+                <div class="operation"><span>Dernière sauvegarde</span><span>Aujourd’hui 02:00</span></div>
+            </div>
+
+            <div class="card">
+                <h2>Service disponible</h2>
+                <p class="don-message">
+                    Le service est imaginé pour rester disponible, même en cas de problème technique.
+                    Une copie de sécurité peut aider à restaurer les informations importantes.
+                </p>
+                <p class="security-ok">Service principal opérationnel</p>
+                <p class="security-ok">Copie de secours prévue</p>
+                <p class="security-ok">Suivi de l’état du service</p>
+            </div>
+
+            <div class="card">
+                <h2>Opérations sensibles</h2>
+                <p class="don-message">
+                    Les actions importantes comme les virements ou le changement de mot de passe doivent être vérifiées
+                    pour limiter les erreurs et protéger le client.
+                </p>
+                <p class="security-ok">Virement vérifié avant envoi</p>
+                <p class="security-ok">Montant contrôlé</p>
+                <p class="security-ok">Changement de mot de passe sécurisé</p>
+            </div>
+
+            <div class="card">
+                <h2>Évolution possible</h2>
+                <p class="don-message">
+                    Cette maquette peut évoluer vers une vraie application avec comptes utilisateurs, base de données,
+                    espace administrateur et sauvegarde automatique.
+                </p>
+                <div class="operation"><span>Compte utilisateur réel</span><span>Prévu</span></div>
+                <div class="operation"><span>Base de données</span><span>Prévue</span></div>
+                <div class="operation"><span>Notifications de sécurité</span><span>Prévues</span></div>
+                <div class="operation"><span>Historique complet</span><span>Prévu</span></div>
+            </div>
+
+            <div class="card">
+                <h2>Confiance client</h2>
+                <p class="security-ok">Interface claire et simple</p>
+                <p class="security-ok">Informations importantes visibles rapidement</p>
+                <p class="security-ok">Suivi des opérations</p>
+                <p class="security-ok">Espace solidaire intégré</p>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 <footer>
-    © 2026 Banque Saïd - Tous droits réservés
+    © 2026 Banque Saïd - Prototype frontend éducatif
 </footer>
 
 <script>
